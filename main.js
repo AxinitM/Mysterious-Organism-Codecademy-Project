@@ -4,7 +4,7 @@ const returnRandBase = () => {
   return dnaBases[Math.floor(Math.random() * 4)];
 };
 
-// Returns a random single stand of DNA containing 15 bases
+// Returns a random single strand of DNA containing 15 bases
 const mockUpStrand = () => {
   const newStrand = [];
   for (let i = 0; i < 15; i++) {
@@ -13,65 +13,56 @@ const mockUpStrand = () => {
   return newStrand;
 };
 
-
+// Factory function to create a pAequor object
 const pAequorFactory = (specimenNum, dna) => {
   return {
     specimenNum,
     dna,
 
-
     mutate() {
-      const dnaBases = ['A', 'T', 'C', 'G'];
-
-      // Select a random index in the dna array
-      const index = Math.floor(Math.random() * this.dna.length);
-
-      // Get the current base at that index
-      const currentBase = this.dna[index];
-
-      // Filter out the current base to avoid selecting it again
-      const newBases = dnaBases.filter(base => base !== currentBase);
-
-      // Randomly pick a new base from the remaining options
-      const newBase = newBases[Math.floor(Math.random() * newBases.length)];
-
-      // Replace the old base with the new one
-      this.dna[index] = newBase;
-
-      // Return the mutated dna array
+      const randomIndex = Math.floor(Math.random() * this.dna.length);
+      let newBase = returnRandBase();
+      while (this.dna[randomIndex] === newBase) {
+        newBase = returnRandBase();
+      }
+      this.dna[randomIndex] = newBase;
       return this.dna;
+    },
+
+    compareDNA(otherPAequor) {
+      let identicalCount = 0;
+      for (let i = 0; i < this.dna.length; i++) {
+        if (this.dna[i] === otherPAequor.dna[i]) {
+          identicalCount++;
+        }
+      }
+      const percentCommon = ((identicalCount / this.dna.length) * 100).toFixed(2);
+      console.log(
+        `Specimen #${this.specimenNum} and specimen #${otherPAequor.specimenNum} have ${percentCommon}% DNA in common.`
+      );
+    },
+
+    willLikelySurvive() {
+      const cgCount = this.dna.filter(base => base === 'C' || base === 'G').length;
+      const percentCG = (cgCount / this.dna.length) * 100;
+      return percentCG >= 60;
     }
   };
 };
 
+// Create an array with 30 instances of pAequor likely to survive
+const survivingPAequor = [];
+let specimenNum = 1;
 
-const organism1 = pAequorFactory(1, mockUpStrand());
-console.log("Before mutation:", organism1.dna);
+while (survivingPAequor.length < 30) {
+  const newOrganism = pAequorFactory(specimenNum, mockUpStrand());
+  if (newOrganism.willLikelySurvive()) {
+    survivingPAequor.push(newOrganism);
+  }
+  specimenNum++;
+}
 
-organism1.mutate();
-console.log("After mutation:", organism1.dna);
-
-
-
-
-
-
-
-
-
-
-
-// Поскольку вам нужно создать несколько объектов, создайте фабричную функцию pAequorFactory()с двумя параметрами:
-
-// Первый параметр — число (два организма не должны иметь одинаковое число).
-// Второй параметр — массив из 15 оснований ДНК.
-// pAequorFactory()должен возвращать объект, содержащий свойства specimenNumи dnaсоответствующий предоставленным параметрам.
-
-// На последующих шагах вы также добавите дополнительные методы к этому возвращаемому объекту.
-
-
-
-
-
-
-
+// Test examples
+survivingPAequor[0].compareDNA(survivingPAequor[1]);
+console.log(survivingPAequor[0].willLikelySurvive());
+console.log(`Number of surviving pAequor: ${survivingPAequor.length}`);

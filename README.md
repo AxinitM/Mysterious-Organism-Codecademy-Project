@@ -2,7 +2,7 @@
 
 This is a solution to the **"Challenge Project: Mysterious Organism"** on Codecademy.  
 
-This project is slightly different from others you have encountered thus far on Codecademy. Instead of a step-by-step tutorial, this project contains a series of open-ended requirements that describe the project you’ll be building. There are many possible ways to correctly fulfill all of these requirements, and you should expect to use the internet, Codecademy, and other resources when you encounter a problem that you cannot easily solve.
+This project is designed to simulate DNA comparison and survival prediction for a fictional organism, *P. aequor*. It demonstrates practical use of JavaScript functions, object methods, conditionals, and loops.  
 
 ---
 
@@ -21,19 +21,37 @@ This project is slightly different from others you have encountered thus far on 
 
 ## Overview
 
-The **Challenge Project: Mysterious Organism** simulates a scenario in which a company suspects that credit card distributors have been mailing out cards with invalid numbers.  
-
+The **Challenge Project: Mysterious Organism** explores DNA structure simulation for a fictional species, *P. aequor*.  
+Each organism is represented as an object with unique DNA data, which can mutate, be compared with others, and evaluated for survival likelihood based on its genetic composition.  
 
 ---
 
 ## Project Goals
 
-
+- Generate random DNA sequences and simulate biological variation.  
+- Implement an object factory function (`pAequorFactory()`) with multiple biological behaviors.  
+- Compare DNA sequences between two specimens and determine similarity.  
+- Predict organism survivability based on DNA composition.  
+- Create and store 30 specimens likely to survive in their natural environment.
+    
 ---
 
 ## Features
 
+- **Random DNA generation:**  
+  Each specimen has a random strand of 15 DNA bases (`A`, `T`, `C`, `G`).  
 
+- **Mutation:**  
+  `.mutate()` randomly changes one DNA base to a different one.  
+
+- **DNA Comparison:**  
+  `.compareDNA()` compares DNA between two *P. aequor* specimens and prints the percentage of identical bases in the same position.  
+
+- **Survival Prediction:**  
+  `.willLikelySurvive()` returns `true` if at least 60% of the DNA consists of `C` or `G` bases.  
+
+- **Survivor Collection:**  
+  Automatically generates an array of 30 specimens that meet the survival criteria.
 
 ---
 
