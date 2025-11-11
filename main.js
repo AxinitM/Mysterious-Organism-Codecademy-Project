@@ -62,7 +62,7 @@ while (survivingPAequor.length < 30) {
   specimenNum++;
 }
 
-// Test examples
+// Testing examples
 survivingPAequor[0].compareDNA(survivingPAequor[1]);
 console.log(survivingPAequor[0].willLikelySurvive());
 console.log(`Number of surviving pAequor: ${survivingPAequor.length}`);
